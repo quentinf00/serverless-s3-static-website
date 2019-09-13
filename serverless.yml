@@ -1,14 +1,22 @@
 
-service: quentin-static-website
+service: dojo-quentin-static-website
 
 provider:
   name: aws
-  runtime: python2.7
+  runtime: python3.6
+  region: eu-west-1
 
 
 resources:
- Resources:
-   NewResource:
-     Type: AWS::S3::Bucket
-     Properties:
-       BucketName: my-new-bucket
+  Resources:
+    StaticSiteBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${env:STATIC_WEBSITE_BUCKET} # The environement variable needs to be set
+        AccessControl: PublicRead
+        WebsiteConfiguration:
+          IndexDocument: index.html
+  Outputs:
+    WebsiteURL:
+        Value: !GetAtt [StaticSiteBucket, WebsiteURL]
+        Description: URL for website hosted on S3
