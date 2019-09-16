@@ -48,7 +48,7 @@ resources: # Below this is a cloudformation template
         WebsiteConfiguration:
           IndexDocument: index.html # Entry point of the website
     Outputs: # Describes what to output once the stack is built
-    WebsiteURL:
+      WebsiteURL:
         Value: !GetAtt [StaticSiteBucket, WebsiteURL]  # Let's print the website url
         Description: URL for website hosted on S3
 ```
